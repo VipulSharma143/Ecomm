@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Ecomm.Models.ViewModels.ProductWithOrderCountViewModel>
+<form asp-action="Index">
+    <style>
+        .search-container {
+            text-align: left;
+            margin-top: 50px;
+        }
+
+            .search-container input[type="search"] {
+                padding: 10px;
+                width: 300px;
+                border-radius: 5px;
+                border: 1px solid #ccc;
+                font-size: 16px;
+                outline: none;
+            }
+
+            .search-container input[type="submit"] {
+                padding: 10px 20px;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+                font-size: 16px;
+            }
+    </style>
+    <body>
+        <div class="container">
+            <div class="row">
+                <div class="col-md-6 mx-auto">
+                    <form class="search-form" method="GET">
+                        <div class="input-group">
+                            <input type="search" name="search" class="form-control" placeholder="Search Item" />
+                            <div class="input-group-append">
+                                <button type="submit" class="btn btn-primary">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </body>
+</form>
+<div class="row">
+    @foreach (var product in Model)
+    {
+        <div class="col-lg-3 col-md-6">
+            <div class="row p-2">
+                <div class="col-12 p-1" style="border:1px solid #008cba; border-radius: 5px;">
+                    <div class="card" style="border:0px;">
+                        <img src="@product.ImageUrl" height="300px" class="card-img-top rounded" />
+                        <div class="pl-1">
+                            <p class="card-title h5"><b style="color:#2c3e50">@product.Title</b></p>
+                        </div>
+                        <div style="padding-left:5px;">
+                            <p>List Price: <strike><b class="">Rs @product.ListPrice.ToString("0.00")</b></strike></p>
+                        </div>
+                        <div style="padding-left:5px;">
+                            <p style="color:maroon">As low as: <b class="">Rs @product.Price100.ToString("0.00")</b></p>
+                            <p>Item Ordered: @product.OrderCount Times</p>
+                        </div>
+                        <div class="product-card">
+                            <p>Rating: @product.Rating</p>
+                        </div>
+                    </div>
+                    <div>
+                        <!-- Add a download link/button -->
+                        <a href="@Url.Action("DownloadImage", "Home", new { id = product.ProductId })" class="btn btn-primary form-control">Download Image</a>
+                        <a asp-action="Details" class=" btn btn-primary form-control" asp-route-id="@product.ProductId">Details</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

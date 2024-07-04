@@ -1,0 +1,105 @@
+﻿@model Ecomm.Models.ViewModels.ShoppingCartVM
+
+<form method="post" onsubmit="return validateCheckBox()">
+    <br />
+    <div class="backgroundWhiteBorder">
+        <div class="container">
+            <div class="card">
+                <div class="card-header bg-dark text-light ml-0 row container">
+                    <div class="col-6">
+                        <i class="fa fa-shopping-cart"></i> &nbsp;
+                        Shopping Cart
+                    </div>
+                    <div class="col-6 text-right">
+                        <a asp-action="Index" asp-controller="Home" class="btn btn-outline-info btn-sm">Continue Shopping</a>
+                    </div>
+                </div>
+                <div class="card-body">
+                    @foreach (var list in Model.ListCart)
+                    {
+                        <div class="row">
+                            <div class="col-1 text-center py-2">
+                                <!-- Checkbox for each item -->
+                                <input type="checkbox" name="selectedproducts" value="@list.Id" />
+                            </div>
+
+                            <div class="d-none d-lg-block col-lg-1 text-center py-2">
+                                <img src="@list.Product.ImageUrl" class="rounded" width="150%" />
+                            </div>
+
+                            <div class="col-11 col-lg-11 text-left">
+                                <h5><strong>@list.Product.Title</strong></h5>
+                                <p><small>@Html.Raw(list.Product.Description)</small></p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h6><strong>@list.Price<span class="text-muted">x</span>@list.Count=@(list.Price * list.Count) </strong></h6>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="float-right mx-1">
+                                            <a asp-action="plus" asp-route-id="@list.Id" class="btn btn-primary">
+                                                <i class="fas fa-plus"></i>
+                                            </a>
+                                        </div>
+                                        <div class="float-right mx-1">
+                                            <a asp-action="minus" asp-route-id="@list.Id" class="btn btn-danger">
+                                                <i class="fas fa-minus"></i>
+                                            </a>
+                                        </div>
+                                        <div class="float-right">
+                                            <a asp-action="delete" asp-route-id="@list.Id" class="btn btn-outline-danger">
+                                                <i class="fas fa-trash"></i>
+                                            </a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- Details container with unique ID -->
+                        <div id="item-details-@list.Id" class="item-details" style="display: none;">
+                            <!-- Put item details here -->
+                        </div>
+                        <hr />
+                    }
+
+                    <div class="row">
+                        <div class="col-12 col-md-6 offset-md-6 col-lg-4 offset-lg-8 pr-4">
+                            <ul class="list-group">
+                                <li class="list-group-item d-flex justify-content-between bg-light">
+                                    <span class="text-info"> Total (USD)</span>
+                                    <strong class="text-info"> $<span id="txtOrderTotal">@Model.OrderHeader.OrderTotal</span></strong>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card-footer">
+                    <div class="card-footer row">
+                        <div class="col-sm-12 col-lg-4 col-md-6 offset-lg-8 offset-md-6 ">
+                            <button type="submit" class="btn btn-success form-control">Summary</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+
+<script>
+    function validateCheckBox() {
+        var checkboxes = document.getElementsByName('selectedproducts');
+        var isChecked = false;
+        for (var i = 0; i < checkboxes.length; i++) {
+            if (checkboxes[i].checked) {
+                isChecked = true;
+                break;
+            }
+        }
+        if (!isChecked) {
+            // No checkbox is checked, perform your action here
+            alert("Please select at least one product.");
+            return false;
+        }
+        return true;
+    }
+</script>

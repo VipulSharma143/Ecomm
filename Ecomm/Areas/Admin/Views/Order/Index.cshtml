@@ -1,0 +1,28 @@
+﻿@model Ecomm.Models.ViewModels.ShoppingCartVM
+
+<div class="col-9">
+    <h2 class="text-primary">All Orders</h2>
+</div>
+<div class="col-3">
+</div>
+</div>
+<div class="container rounded border m-2 p-2">
+    <table id="tbldata" class="table table-bordered table-striped table-active">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>OrderDate</th>
+                <th>OrderTotal</th>
+                <th>PaymentStatus</th>
+                <th>PhoneNumber</th>
+                <th>Actions</th>
+                <th></th>
+                <!-- Add more columns if needed -->
+            </tr>
+        </thead>
+    </table>
+</div>
+
+@section  scripts{
+    <script src="~/js/order.js"></script>
+}
