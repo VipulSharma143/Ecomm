@@ -201,7 +201,7 @@ namespace Ecomm.Areas.Identity.Pages.Account
                         await _roleManager.CreateAsync(new IdentityRole(SD.Role_Individual));
                     }
                     if(!await _roleManager.RoleExistsAsync(SD.Role_Company))
-                    {
+                    {//ddd
                         await _roleManager.CreateAsync(new IdentityRole(SD.Role_Company));
                     }
                     if(!await _roleManager.RoleExistsAsync(SD.Role_Employee))

@@ -297,18 +297,18 @@ namespace Ecomm_Project.Areas.Customer.Controllers
                 await _emailSender.SendEmailAsync(user.Email, "Order Confirmation",
                     $"Your order has been placed successfully. Thank you for shopping with us by <a href='{HtmlEncoder.Default.Encode(callbackUrl)}'>clicking here</a>.");
 
-                string accountSid = "AC198deaa21ee871031d58083bb790318b";
-                string authToken = "66c4673d4f279f396378b3cce1971585";
+                string accountSid = "";
+                string authToken = "";
 
 
                 // Initialize the Twilio client
                 TwilioClient.Init(accountSid, authToken);
 
                 // The phone number to send the message from (Twilio phone number)
-                string fromPhoneNumber = "+12183167899"; // Replace with your Twilio phone number
+                string fromPhoneNumber = "+"; // Replace with your Twilio phone number
 
                 // The phone number to send the message to (destination phone number)
-                string toPhoneNumber = "+917018324640"; // Replace with the destination phone number
+                string toPhoneNumber = "+"; // Replace with the destination phone number
 
                 try
                 {
